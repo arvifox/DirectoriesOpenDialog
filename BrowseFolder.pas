@@ -48,9 +48,9 @@ end;
 function BrowseCallbackProc(hwnd: HWND; uMsg: UINT; lParam: integer;
                             lpData: integer): integer; stdcall;
 begin
-  // какое сообщение получили
+  // get message
   if uMsg=BFFM_INITIALIZED then
-    // отправляем сообщение на изменение каталога
+    // send message to cheange dir
     SendMessage(hwnd,BFFM_SETSELECTION,1,lpData);
   result:=0;
 end;
@@ -65,7 +65,7 @@ var
 begin
   result:=false;
   FillChar(BrowseInfo, sizeof(TBrowseInfo), #0);
-  // инициализация
+  // init
   BrowseInfo.hwndOwner := phwnd;
   BrowseInfo.pszDisplayName := @DisplayName;
   BrowseInfo.lpszTitle := PChar(TitleName);
@@ -74,7 +74,7 @@ begin
   pp:=StartDir;
   lstrcpy(TempPath,@pp[1]);
   BrowseInfo.lParam:=integer(@TempPath);
-  // показ диалога
+  // show window
   lpItemID := SHBrowseForFolder(BrowseInfo);
   if lpItemId <> nil then
   begin
